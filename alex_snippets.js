@@ -3,7 +3,8 @@ var chef = 'https://corporate.1804-ci-staging-cms-3.coremedia.vm/corporate'
 function testsize(site, shotname=''){
 	describe('testing different screen sizes', function(){it('whatever', function(){
 		cy.visit(site)
-		cy.get('.navbar-header').invoke('css', 'position', 'absolute')
+		cy.wait(1000) // ur server too slow
+		cy.get('#cm-header').invoke('css', 'position', 'absolute')
 		cy.viewport(410, 1000)
 		cy.wait(tim)
 		cy.screenshot(shotname+'phone')
@@ -140,3 +141,31 @@ var sites = ["https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate",
 var i=0;
 
 sites.forEach((item) => {testsize(item, i.toString());i++;});
+
+
+
+
+
+function snaptree(site){
+	describe('creating snapshots of all links', function(){it('whatever', function(){
+		cy.visit(site)
+		// goto site
+		//.screenshot() // commented out to speed up testing
+		// make a screenshot of it ('/')
+		.get('a').each(($el) => 
+		{cy.wrap($el).should('have.attr','href').then(
+			(href) => {cy.visit(site+href).screenshot()} // make sure it only takes new sites (and not scrolls)
+		)}) // eventually to be replaced by snapsite
+		// make screenshots of all linked sites '/*'
+		})
+	})
+}
+
+snaptree(chef);
+//describe('wtf', function(){it('whatever', function(){cy.visit('https://xkcd.com/').visit('2008')})})
+
+
+
+
+
+
