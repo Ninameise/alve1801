@@ -3,7 +3,6 @@ var chef = 'https://corporate.1804-ci-staging-cms-3.coremedia.vm/corporate'
 function testsize(site, shotname=''){
 	describe('testing different screen sizes', function(){it('whatever', function(){
 		cy.visit(site)
-		cy.wait(1000) // ur server too slow
 		cy.get('#cm-header').invoke('css', 'position', 'absolute')
 		cy.viewport(410, 1000)
 		cy.wait(tim)
