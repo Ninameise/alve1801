@@ -1,8 +1,9 @@
 var tim = 400;
 var chef = 'https://corporate.1804-ci-staging-cms-3.coremedia.vm/corporate'
-function testsize(site, shotname=''){
-	describe('testing different screen sizes', function(){it('whatever', function(){
+function testen(site, shotname=''){
+	describe('testing English sites', function(){it('', function(){
 		cy.visit(site)
+		//cy.wait(1000) // ur server too slow
 		cy.get('#cm-header').invoke('css', 'position', 'absolute')
 		cy.viewport(410, 1000)
 		cy.wait(tim)
@@ -16,6 +17,17 @@ function testsize(site, shotname=''){
 		cy.viewport(1190, 1000)
 		cy.wait(tim)
 		cy.screenshot(shotname+'overflow')
+		})
+	})
+}
+
+function testde(site, size=1020, shotname=''){
+	describe('testing German sites', function(){it('', function(){
+		cy.visit(site).get('.navbar_toggle').click().get('.language-chooser__button').click()
+		.viewport(size, 1000)
+		.screenshot(shotname+'_en')
+		.get('de').click() // XXX
+		.screenshot(shotname+'_de')
 		})
 	})
 }
@@ -108,10 +120,6 @@ var sites = ["https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate",
 "https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate/embedding-test",
 "https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate/asset-detail",
 "https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate/topicpage",
-"https://corporate.1804-ci-staging-cms-4.coremedia.vm/resource/blob/648/0a2908e04eb032713138147de1f9dae5/chefwave-hd-large-datasheet-pdf-download-data.pdf",
-"https://corporate.1804-ci-staging-cms-4.coremedia.vm/resource/blob/652/625a5a5eab07d28c2ef267ed79b19f87/chefwave-hd-small-datasheet-pdf-download-data.pdf",
-"https://corporate.1804-ci-staging-cms-4.coremedia.vm/resource/blob/654/47b232a9ee5f4764338c446206122128/chefwave-hd-large-eu-compliance-pdf-download-data.pdf",
-"https://corporate.1804-ci-staging-cms-4.coremedia.vm/resource/blob/656/0575d65eac4df29923df2355f521d556/chefwave-hd-small-eu-compliance-pdf-download-data.pdf",
 "https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate/for-professionals/products/catalog/blenders-and-food-processors/browne-bl1300-blender-2294",
 "https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate/for-professionals/products/catalog/blenders-and-food-processors/browne-bl300-blender-2296",
 "https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate/for-professionals/products/catalog/blenders-and-food-processors",
@@ -136,35 +144,120 @@ var sites = ["https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate",
 "https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate/for-professionals/products/catalog/ranges-and-ovens/chef-range-cr990-deluxe-2362",
 "https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate/for-professionals/products/catalog/ranges-and-ovens",
 "https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate/for-professionals/products/catalog"];
+var seiten = ["https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/about/erfahren-sie-mehr-ueber-die-chef-gmbh-1130",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/about/chef-corp-weltweit-1132",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/about/die-zutaten-unseres-erfolgs--1136",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/about/unsere-chefs--1140",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/about",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/am-download-portal",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/karriere/offene-positionen-1168",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/karriere",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/image-film",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-contacts",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-events/jahresbericht-geschaeftsjahr-2011-mit-pressegespraech-investoren-und-analystenkonferenz-1250",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-events/jahresbericht-geschaeftsjahr-2012-mit-pressegespraech-investoren-und-analystenkonferenz-1252",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-events/geschaeftsbericht-2013-mit-pressekonferenz-1256",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-events/2015-dividendenzahlung-1260",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-events/2015-hauptversammlung-1264",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-events/geschaeftsbericht-2014-mit-pressekonferenz-1268",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-events/zwischenbericht-1-quartal-2015-mit-investoren-und-analysten-telefonkonferenz-1272",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-events/zwischenbericht-2-quartal-2015-mit-investoren-und-analysten-telefonkonferenz-1276",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-events/zwischenbericht-3-quartal-2015-mit-analysten-telefonkonferenz-1284",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-events",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-finanzberichte/jaehrliche-hauptversammlung-2016-1304",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-finanzberichte/chef-corp-steigert-erneut-umsatz-im-2-quartal-2016-1306",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-finanzberichte/chef-corp-erzielt-rekordergebnis-1310",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-finanzberichte/neue-partnerschaft-mit-dem-chinesischen-hersteller-chongxing-1314",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-finanzberichte/chef-corp-erzielt-rekordquartal-1316",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-finanzberichte/chef-corp-erzielt-rekordquartal-1322",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-finanzberichte/chef-corp-stellt-starkoechin-maicu-cumberbatch-als-beraterin-ein-1332",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations/ir-finanzberichte",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/investor-relations",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/press/press-contacts/pressekontakte-1378",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/press/press-contacts",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/press/veranstaltungen/chef-corp-grill-wettbewerb-1392",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/press/veranstaltungen/chef-corp-benefiz-golf-turnier-1398",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/press/veranstaltungen/chef-corp-buero-eroeffnungsparty-1402",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/press/veranstaltungen/chef-corp-sicherheits-check-1408",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/press/veranstaltungen",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/press/pressemitteilungen/das-geheimrezept-beim-grosskuechen-design-1428",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/press/pressemitteilungen/6-000-glueckliche-kunden-in-fuenf-jahren-1430",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/press/pressemitteilungen/heisse-tipps-fuer-effiziente-kuehlung-1434",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/press/pressemitteilungen/immer-nah-am-gast-dank-integrierter-technologie-1438",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/press/pressemitteilungen/neue-sicherheitsbestimmungen-fuer-professionelle-kuechen-1444",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/press/pressemitteilungen/portugiesische-kueche-das-unentdeckte-land-der-koestlichkeiten-1448",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/press/pressemitteilungen/weltneuheit-chefwave-hd-die-mikrowellen-fritteuse-von-chef-corp--1456",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/press/pressemitteilungen",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/press",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/unser-anspruch-1146",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company/der-chef-kocht-mit--1488",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/company",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-consumers/aurora-b2c-shop-1512",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-consumers/aurora-b2c",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-consumers/sternekuechen-fuer-hobbykoeche--1518",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-consumers",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/das-ist-chris-er-hat-sein-eigenes-restaurant-in-kapstadt-eroeffnet--1558",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/spass-ist-der-treiber-fuer-alles-1562",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/spass-ist-ihr-antrieb-1566",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/spass-ist-ihr-antrieb-1570",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/erfahren-sie-wie-jacob-seine-kochtraeume-wahr-werden-liess--1574",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/perfektion-ist-dein-mantra-1578",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/erfahren-sie-wie-peter-seinen-traum-verwirklicht-hat--1582",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/perfektion-ist-dein-mantra-1584",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/machen-sie-ihren-traum-wahr-1586",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/sie-sind-der-perfekte-koch-bringen-sie-ihre-traeume-zum-leben-1594",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/lernen-sie-sally-kennen-sie-betreibt-ein-caf%C3%A9-in-florenz--1598",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/lernen-sie-sandra-kennen-sie-wurde-ihre-eigene-koechin--1602",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/sie-sind-der-perfekte-koch-1606",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/sie-sind-der-perfekte-koch-1610",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/praezision-ist-eine-tugend-1612",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/aurora-b2b-shop-1624",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/aurora-b2b",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/geniessen-sie-ihre-leidenschaft",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/bringen-sie-ihre-traeume-zum-leben",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/services/lieferung-1670",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/services/design-1672",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/services/finanzierung-1684",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/services",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/fuer-professionals-1692",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/premiumpartner-der-spitzengastronomie-1694",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/search-results",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/corporate-information/contact-us",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/corporate-information/sitemap",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/corporate-information/sitemap-1924",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/corporate-information",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/embedding-test",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/asset-detail",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/topicpage",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/chef-wave-fryers",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/chef-wave-fryers/chefwave-hd-fritteuse-gross-1546",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/chef-wave-fryers/chefwave-hd-fritteuse-klein-2320",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/blenders-and-food-processors",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/blenders-and-food-processors/kitchenette-knc30-mixer-1556",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/blenders-and-food-processors/browne-bl700-blender-2302",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/blenders-and-food-processors/browne-bl1300-blender-2308",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/blenders-and-food-processors/browne-bl300-blender-2310",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/blenders-and-food-processors/kanetree-kt4000-mixer-2312",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/ranges-and-ovens",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/ranges-and-ovens/chef-range-cr1020-premium-herd-1552",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/ranges-and-ovens/chef-range-cr780-standard-2352",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/ranges-and-ovens/chef-range-cr990-deluxe-2356",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/ranges-and-ovens/chef-range-cr640-easy-2358",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/ranges-and-ovens/chef-range-cr520-basic-2362",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/hoods-and-extractors/chef-extractor-hood-hd800-einbau-1550",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/hoods-and-extractors",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/hoods-and-extractors/chef-extractor-hood-hd800-wandmontage-2336",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/hoods-and-extractors/chef-extractor-hood-hd900-einbau-2340",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/hoods-and-extractors/chef-extractor-hood-hd900-wandmontage-2342",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/cooling-and-storage/chef-cold-storage-ccs95-kuehllager-1646",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/cooling-and-storage",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de/cooling-and-storage/chef-cold-storage-ccs80-kuehllager-2326",
+"https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de-de/for-professionals/products/catalog-de-de"];
 
-var i=0;
-
-sites.forEach((item) => {testsize(item, i.toString());i++;});
-
-
-
-
-
-function snaptree(site){
-	describe('creating snapshots of all links', function(){it('whatever', function(){
-		cy.visit(site)
-		// goto site
-		//.screenshot() // commented out to speed up testing
-		// make a screenshot of it ('/')
-		.get('a').each(($el) => 
-		{cy.wrap($el).should('have.attr','href').then(
-			(href) => {cy.visit(site+href).screenshot()} // make sure it only takes new sites (and not scrolls)
-		)}) // eventually to be replaced by snapsite
-		// make screenshots of all linked sites '/*'
-		})
-	})
-}
-
-snaptree(chef);
-//describe('wtf', function(){it('whatever', function(){cy.visit('https://xkcd.com/').visit('2008')})})
-
-
-
-
+function testEnglishSites(){var i=0;sites.forEach((item) => {i++;testen(item, i.toString());});}
+function testGermanSites(){var i=0;seiten.forEach((item) => {i++;testde(item, i.toString()+'_de');});}
 
 
