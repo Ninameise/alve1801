@@ -1,33 +1,46 @@
-var tim = 400;
+var tim = 1000;
 var chef = 'https://corporate.1804-ci-staging-cms-3.coremedia.vm/corporate'
+
 function testen(site, shotname=''){
 	describe('testing English sites', function(){it('', function(){
 		cy.visit(site)
-		//cy.wait(1000) // ur server too slow
-		cy.get('#cm-header').invoke('css', 'position', 'absolute')
+		cy.get('#cm-header').invoke('css', 'position', 'absolute') // solves the shiding header issue
 		cy.viewport(410, 1000)
 		cy.wait(tim)
-		cy.screenshot(shotname+'phone')
+		//.then(($a) => {debugger}) // oldschool; doesn't work
+		//.debug() // newschool; doesn't work
+		// maybe use F8 and modify per hand? can't find anything smarter rn . . .
+		cy.screenshot(shotname+'-phone')
 		cy.viewport(760, 1000)
 		cy.wait(tim)
-		cy.screenshot(shotname+'tablet')
+		cy.screenshot(shotname+'-tablet')
 		cy.viewport(1020, 1000)
 		cy.wait(tim)
-		cy.screenshot(shotname+'desktop')
+		cy.screenshot(shotname+'-desktop')
 		cy.viewport(1190, 1000)
 		cy.wait(tim)
-		cy.screenshot(shotname+'overflow')
+		cy.screenshot(shotname+'-overflow')
 		})
 	})
 }
 
 function testde(site, size=1020, shotname=''){
+	shotname+='_de';
 	describe('testing German sites', function(){it('', function(){
-		cy.visit(site).get('.navbar_toggle').click().get('.language-chooser__button').click()
-		.viewport(size, 1000)
-		.screenshot(shotname+'_en')
-		.get('de').click() // XXX
-		.screenshot(shotname+'_de')
+		cy.visit(site)
+		cy.get('#cm-header').invoke('css', 'position', 'absolute')
+		cy.viewport(410, 1000)
+		cy.wait(tim)
+		cy.screenshot(shotname+'-phone')
+		cy.viewport(760, 1000)
+		cy.wait(tim)
+		cy.screenshot(shotname+'-tablet')
+		cy.viewport(1020, 1000)
+		cy.wait(tim)
+		cy.screenshot(shotname+'-desktop')
+		cy.viewport(1190, 1000)
+		cy.wait(tim)
+		cy.screenshot(shotname+'-overflow')
 		})
 	})
 }
@@ -259,5 +272,20 @@ var seiten = ["https://corporate.1804-ci-staging-cms-4.coremedia.vm/corporate-de
 
 function testEnglishSites(){var i=0;sites.forEach((item) => {i++;testen(item, i.toString());});}
 function testGermanSites(){var i=0;seiten.forEach((item) => {i++;testde(item, i.toString()+'_de');});}
+
+
+testEnglishSites();
+
+
+/*
+function compare(file1, file2){
+	return(resemble(file).compareTo(file2).onComplete(function(a){return(a);}));	
+}
+
+compare('1.png','2.png');
+*/
+
+
+
 
 
